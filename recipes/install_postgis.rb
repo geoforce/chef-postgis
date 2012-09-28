@@ -18,7 +18,7 @@ end
 remote_file "/tmp/#{tarball}" do
  source "http://postgis.refractions.net/download/#{tarball}"
  mode "0644"
- # checksum "a2334f8b229446c0497d48a430a40152a3b71a5da02f414a0340a0a025d416cf" 
+ checksum "a2334f8b229446c0497d48a430a40152a3b71a5da02f414a0340a0a025d416cf" 
  notifies :run, "bash[install_postgis_#{node[:postgis][:version]}]", :immediately
 end
 
@@ -28,12 +28,12 @@ bash "install_postgis_#{node[:postgis][:version]}" do
  tar_dir = "/usr/local/src"
  cwd tar_dir
  code <<-EOH
-     tar zxf /tmp/#{tarball}
-     (cd postgis-#{node[:postgis][:version]}/ 
-     && ./configure 
-     && make 
-     && make install 
-     && sudo checkinstall --pkgname postgis-#{node[:postgis][:version]} --pkgversion #{node[:postgis][:version]}-src --default) 
+   tar zxf /tmp/#{tarball}
+   cd postgis-#{node[:postgis][:version]}/
+   ./configure
+   make
+   make install
+   sudo checkinstall --pkgname postgis-#{node[:postgis][:version]} --pkgversion #{node[:postgis][:version]}-src --default) 
    EOH
  command ""
  creates tar_dir + "/postgis-#{node[:postgis][:version]}"
@@ -41,8 +41,8 @@ bash "install_postgis_#{node[:postgis][:version]}" do
 end 
 
 # execute "create postgis 1.5 share dir" do  
-#  command "mkdir -p '`pg_config --sharedir`/contrib/postgis-1.5'"
-#  creates "'`pg_config --sharedir`/contrib/postgis-1.5'"
+#  command "mkdir -p '`pg_config --sharedir`/contrib/postgis-#{node[:postgis][:version]}'"
+#  creates "'`pg_config --sharedir`/contrib/postgis-#{node[:postgis][:version]}'"
 #  action :run
 # end
 
