@@ -21,12 +21,11 @@
 
 package 'libxml2'
 package 'libxml2-dev'
-package 'libgeos-dev'
 package 'proj'
 package 'libgdal1-dev'
 
 #include_recipe 'gdal'
-#include_recipe 'geos'
+include_recipe 'postgis::geos'
 #include_recipe 'proj' 
 
 include_recipe "postgis::fix_locale"
