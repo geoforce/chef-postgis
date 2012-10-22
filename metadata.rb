@@ -8,10 +8,6 @@ version          "0.1"
 depends 'apt', '>= 1.4.8'
 depends 'postgresql', '>= 0.99.4'
 
-depends 'geos'
-depends 'gdal'
-depends 'proj'
-
 %w{ ubuntu debian }.each do |os|
   supports os
 end
